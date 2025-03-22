@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerberto</title>
+    <link rel="icon" href="https://i.postimg.cc/pd93nhg3/2025-02-16-13-20-14-7ace59bf.jpg" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+        
+        body {
+            font-family: 'Pirata One', cursive;
+            background-color: black;
+            color: limegreen;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: auto;
+            position: relative;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: limegreen;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            font-size: 2rem;
+            text-shadow: 0 0 10px limegreen;
+        }
+
+        h1 {
+            font-size: 4rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            color: red;
+            text-shadow: 0 0 10px red;
+        }
+
+        .track-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .track-card {
+            perspective: 1000px;
+        }
+
+        .track-card-inner {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+
+        .track-card:hover .track-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .track-card-front, .track-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px limegreen;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-shadow: 0 0 5px limegreen;
+            flex-direction: column;
+        }
+
+        .track-card-front {
+            background-color: black;
+            color: limegreen;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .track-card-front img {
+            width: 80%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .track-card-back {
+            background-color: limegreen;
+            color: black;
+            transform: rotateY(180deg);
+        }
+
+        .cover-image {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .social-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: limegreen;
+            text-decoration: none;
+            font-size: 1.5rem;
+            display: block;
+            margin: 5px 0;
+            position: relative;
+            transition: transform 0.3s, text-shadow 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 15px limegreen, 0 0 30px red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SVVM</h1>
+        <div class="subtitle">EP</div>
+    </header>
+    <main>
+        <section class="track-list">
+            <!-- Tracks will be dynamically inserted here -->
+        </section>
+        <img src="https://i.postimg.cc/ryh2dkb6/2025-03-16-04-26-57-6847b92a.jpg" alt="Cover Image" class="cover-image">
+        <p style="color: white; text-align: center; margin-top: 20px; font-size: 1.2rem;">
+            Recording, mixing, and mastering by MIX BEAT & GERBO.<br>
+            The beat is free from YouTube.<br>
+            Performed by the artist GERBERTO & CARTER.<br>
+            The EP is titled SVVM.
+        </p>
+        <div class="social-links">
+            <a href="http://www.youtube.com/@GERBERTO_7" target="_blank">YouTube</a>
+            <a href="https://open.spotify.com/intl-ar/artist/4X74SYCVlJGWvb8OwNE64v?si=rsegwR7_S5KMwcKp1pglXg" target="_blank">Spotify</a>
+            <a href="https://www.instagram.com/gerberto_7/" target="_blank">Instagram</a>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const trackList = document.querySelector('.track-list');
+            
+            if (!trackList) {
+                console.error("Error: .track-list element not found in the DOM.");
+                return;
+            }
+            
+            const tracks = [
+                { title: 'FVRESVM', description: 'GERBERTO' },
+                { title: '7ASHES', description: 'GERBERTO X CARTER' },
+                { title: 'GERBO', description: 'GERBERTO' },
+            ];
+
+            tracks.forEach(track => {
+                const trackCard = document.createElement('div');
+                trackCard.classList.add('track-card');
+
+                const trackCardInner = document.createElement('div');
+                trackCardInner.classList.add('track-card-inner');
+
+                const trackCardFront = document.createElement('div');
+                trackCardFront.classList.add('track-card-front');
+                trackCardFront.innerHTML = `<img src='https://i.postimg.cc/yYtqPTsv/2025-03-16-04-26-56-ec1c592b.jpg' alt='Track Image'><br>${track.title}`;
+
+                const trackCardBack = document.createElement('div');
+                trackCardBack.classList.add('track-card-back');
+                trackCardBack.innerText = track.description;
+
+                trackCardInner.appendChild(trackCardFront);
+                trackCardInner.appendChild(trackCardBack);
+                trackCard.appendChild(trackCardInner);
+                trackList.appendChild(trackCard);
+            });
+        });
+    </script>
+</body>
+</html>
