@@ -216,6 +216,23 @@
             background-color: #FFF;
         }
         
+        .view-front-btn {
+            background-color: #333;
+            color: #FFF;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 800;
+            margin-top: 10px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .view-front-btn:hover {
+            background-color: #555;
+        }
+        
         .modal {
             display: none;
             position: fixed;
@@ -414,19 +431,55 @@
             font-weight: 800;
         }
         
+        .social-media {
+            margin: 30px 0;
+        }
+        
+        .social-media h3 {
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
         .social-links {
-            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
         
         .social-links a {
             color: #FFF;
             font-size: 24px;
-            margin: 0 10px;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #222;
+            text-decoration: none;
         }
         
         .social-links a:hover {
-            color: #FFD700;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .social-links img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+        
+        .social-text {
+            margin-top: 15px;
+            color: #AAA;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: #888;
         }
         
         /* Animation for product showcase */
@@ -472,6 +525,34 @@
             }
         }
         
+        /* Image modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .close-image-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #FFF;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
         /* Responsive styles */
         @media (max-width: 768px) {
             header {
@@ -505,6 +586,20 @@
             .cart-modal {
                 width: 100%;
             }
+            
+            .social-links {
+                gap: 15px;
+            }
+            
+            .social-links a {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .social-links img {
+                width: 25px;
+                height: 25px;
+            }
         }
     </style>
 </head>
@@ -518,7 +613,7 @@
             <ul>
                 <li><a href="#">الرئيسية</a></li>
                 <li><a href="#products">المنتجات</a></li>
-                <li><a href="#about">عنا</a></li>
+                <li><a href="#social">سوشيال ميديا</a></li>
                 <li><a href="#contact">اتصل بنا</a></li>
             </ul>
         </nav>
@@ -539,74 +634,90 @@
     <section class="products" id="products">
         <h2 class="section-title">منتجاتنا</h2>
         <div class="products-grid">
+            <!-- Product 1 -->
             <div class="product-card">
                 <div class="product-image product-animation">
-                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Hoodie 1">
+                    <img src="https://i.postimg.cc/wMsJTd5T/bcacf448-2acd-4cde-9c3c-6fe0f7203641.jpg" alt="تيشرت مروان بابلو">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">هودي الراب الذهبي</h3>
-                    <p class="product-price">350 ج.م</p>
-                    <button class="add-to-cart" data-id="1" data-name="هودي الراب الذهبي" data-price="350">أضف إلى السلة</button>
+                    <h3 class="product-title">تيشرت مروان بابلو</h3>
+                    <p class="product-price">250 ج.م</p>
+                    <button class="add-to-cart" data-id="1" data-name="تيشرت مروان بابلو" data-price="250">أضف إلى السلة</button>
+                    <button class="view-front-btn" data-front="https://i.postimg.cc/mZF8rxgH/bbdffb59-4b2e-492f-a043-af9f946cba4c.jpg">عرض الوجه الأمامي</button>
                 </div>
             </div>
             
+            <!-- Product 2 -->
             <div class="product-card">
                 <div class="product-image product-animation">
-                    <img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="T-shirt 1">
+                    <img src="https://i.postimg.cc/QNRYg8ym/ef2b3ca1-42a5-4fa8-9818-3e5b6d74282e.jpg" alt="تيشرت ويجز">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">تيشرت الراب الأسود</h3>
-                    <p class="product-price">200 ج.م</p>
-                    <button class="add-to-cart" data-id="2" data-name="تيشرت الراب الأسود" data-price="200">أضف إلى السلة</button>
+                    <h3 class="product-title">تيشرت ويجز</h3>
+                    <p class="product-price">280 ج.م</p>
+                    <button class="add-to-cart" data-id="2" data-name="تيشرت ويجز" data-price="280">أضف إلى السلة</button>
+                    <button class="view-front-btn" data-front="https://i.postimg.cc/PfZQjmSb/079ecafa-d51f-4132-8f35-764f1f301d1f.jpg">عرض الوجه الأمامي</button>
                 </div>
             </div>
             
+            <!-- Product 3 -->
             <div class="product-card">
                 <div class="product-image product-animation">
-                    <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Hoodie 2">
+                    <img src="https://i.postimg.cc/fbJYgX39/d6db9d65-bb9b-4b44-96c0-bf506596040e.jpg" alt="تيشرت بابلو فري">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">هودي الراب الأحمر</h3>
-                    <p class="product-price">380 ج.م</p>
-                    <button class="add-to-cart" data-id="3" data-name="هودي الراب الأحمر" data-price="380">أضف إلى السلة</button>
+                    <h3 class="product-title">تيشرت بابلو فري</h3>
+                    <p class="product-price">270 ج.م</p>
+                    <button class="add-to-cart" data-id="3" data-name="تيشرت بابلو فري" data-price="270">أضف إلى السلة</button>
+                    <button class="view-front-btn" data-front="https://i.postimg.cc/sgfY7bsK/e077a4ec-ad01-4deb-802b-045018451ab8.jpg">عرض الوجه الأمامي</button>
                 </div>
             </div>
             
+            <!-- Product 4 -->
             <div class="product-card">
                 <div class="product-image product-animation">
-                    <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="T-shirt 2">
+                    <img src="https://i.postimg.cc/HWQXKTLB/c06101bb-950e-421e-abc0-c2ce617de1ab.jpg" alt="تيشرت مروان موسي">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">تيشرت الراب الأبيض</h3>
-                    <p class="product-price">180 ج.م</p>
-                    <button class="add-to-cart" data-id="4" data-name="تيشرت الراب الأبيض" data-price="180">أضف إلى السلة</button>
+                    <h3 class="product-title">تيشرت مروان موسي</h3>
+                    <p class="product-price">260 ج.م</p>
+                    <button class="add-to-cart" data-id="4" data-name="تيشرت مروان موسي" data-price="260">أضف إلى السلة</button>
+                    <button class="view-front-btn" data-front="https://i.postimg.cc/wMHyHsBF/f4be4b0f-52f8-4f6a-a015-46fcd822a2bf.jpg">عرض الوجه الأمامي</button>
                 </div>
             </div>
             
+            <!-- Product 5 -->
             <div class="product-card">
                 <div class="product-image product-animation">
-                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Pants 1">
+                    <img src="https://i.postimg.cc/L69Ybfw8/83138c55-4302-46cf-8ec1-1d0df5735262.jpg" alt="تيشرت ابيوسف">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">بنطال الراب الواسع</h3>
-                    <p class="product-price">420 ج.م</p>
-                    <button class="add-to-cart" data-id="5" data-name="بنطال الراب الواسع" data-price="420">أضف إلى السلة</button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-image product-animation">
-                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Jacket 1">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">جاكيت الراب الجلدى</h3>
-                    <p class="product-price">550 ج.م</p>
-                    <button class="add-to-cart" data-id="6" data-name="جاكيت الراب الجلدى" data-price="550">أضف إلى السلة</button>
+                    <h3 class="product-title">تيشرت ابيوسف</h3>
+                    <p class="product-price">240 ج.م</p>
+                    <button class="add-to-cart" data-id="5" data-name="تيشرت ابيوسف" data-price="240">أضف إلى السلة</button>
+                    <button class="view-front-btn" data-front="https://i.postimg.cc/tTG7tVFy/0fed5556-6ac5-4ce1-889c-62515f654b46.jpg">عرض الوجه الأمامي</button>
                 </div>
             </div>
         </div>
     </section>
     
+    <!-- Social Media Section -->
+    <section id="social" style="background-color: #000; padding: 50px 5%; text-align: center; border-top: 1px solid #FFD700; border-bottom: 1px solid #FFD700;">
+        <div class="social-media">
+            <h3 style="color: #FFD700; margin-bottom: 30px; font-size: 2rem;">تابعنا على السوشيال ميديا</h3>
+            <div class="social-links">
+                <a href="https://www.instagram.com/scene_store1" target="_blank" title="Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram">
+                </a>
+                <a href="https://www.tiktok.com/@scene.store1" target="_blank" title="TikTok">
+                    <img src="https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png" alt="TikTok">
+                </a>
+            </div>
+            <p class="social-text">تابعنا للحصول على أحدث الإصدارات والعروض الحصرية</p>
+        </div>
+    </section>
+    
+    <!-- Order Modal -->
     <div class="modal" id="order-modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -661,6 +772,7 @@
         </div>
     </div>
     
+    <!-- Cart Modal -->
     <div class="cart-modal" id="cart-modal">
         <span class="close-cart">&times;</span>
         <h2 style="color: #FFD700; margin-bottom: 20px;">سلة التسوق</h2>
@@ -676,17 +788,20 @@
         <button class="checkout-btn" id="checkout-btn">إتمام الشراء</button>
     </div>
     
+    <!-- Image Modal -->
+    <div class="image-modal" id="image-modal">
+        <span class="close-image-modal">&times;</span>
+        <img src="" alt="Front View" class="image-modal-content" id="modal-image">
+    </div>
+    
     <footer id="contact">
         <img src="https://i.postimg.cc/Bbx90XzS/bcc9e76b-1dc5-40c6-a4f9-a0c9c01b8090.jpg" alt="Scene Store" class="footer-logo">
         <div class="contact-info">
             <p>للتواصل معنا:</p>
             <a href="tel:01152830940">01152830940</a>
         </div>
-        <p>جميع الحقوق محفوظة &copy; 2023 Scene Store</p>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
+        <div class="copyright">
+            جميع الحقوق محفوظة &copy; 2023 Scene Store
         </div>
     </footer>
     
@@ -707,6 +822,11 @@
             const closeModal = document.querySelector('.close-modal');
             const orderForm = document.getElementById('order-form');
             
+            // Image modal functionality
+            const imageModal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            const closeImageModal = document.querySelector('.close-image-modal');
+            
             let cart = [];
             
             // Open cart modal
@@ -725,6 +845,11 @@
                 orderModal.style.display = 'none';
             });
             
+            // Close image modal
+            closeImageModal.addEventListener('click', function() {
+                imageModal.style.display = 'none';
+            });
+            
             // Close modals when clicking outside
             window.addEventListener('click', function(event) {
                 if (event.target === orderModal) {
@@ -732,6 +857,9 @@
                 }
                 if (event.target === cartModal) {
                     cartModal.style.display = 'none';
+                }
+                if (event.target === imageModal) {
+                    imageModal.style.display = 'none';
                 }
             });
             
@@ -750,6 +878,16 @@
                     
                     // Show order modal
                     orderModal.style.display = 'flex';
+                });
+            });
+            
+            // View front buttons
+            const viewFrontButtons = document.querySelectorAll('.view-front-btn');
+            viewFrontButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const frontImage = this.getAttribute('data-front');
+                    modalImage.src = frontImage;
+                    imageModal.style.display = 'flex';
                 });
             });
             
