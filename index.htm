@@ -3,1050 +3,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scene Store</title>
+    <title>الفنان الصاعد</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap');
-        
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            font-family: 'Almarai', sans-serif;
-            background-color: #000;
-            color: #FFF;
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
             overflow-x: hidden;
         }
         
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background-color: rgba(0, 0, 0, 0.8);
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            border-bottom: 1px solid #FFD700;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo {
-            height: 50px;
-            margin-left: 15px;
-        }
-        
-        .wide-logo {
-            height: 40px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            color: #FFF;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 18px;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: #FFD700;
-        }
-        
-        .cart-icon {
-            color: #FFF;
-            font-size: 24px;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .cart-count {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background-color: #FFD700;
-            color: #000;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .hero {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.postimg.cc/q70tV3ZR/bcc9e76b-1dc5-40c6-a4f9-a0c9c01b8090.jpg');
-            background-size: cover;
-            background-position: center;
-            text-align: center;
-            padding-top: 80px;
-        }
-        
-        .hero-content h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: #FFD700;
-            font-weight: 800;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        }
-        
-        .hero-content p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            max-width: 800px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: #FFD700;
-            color: #000;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 18px;
-            transition: all 0.3s;
-            border: 2px solid #FFD700;
-        }
-        
-        .btn:hover {
-            background-color: transparent;
-            color: #FFD700;
-        }
-        
-        .products {
-            padding: 100px 5%;
+        /* شريط الأخبار */
+        .news-ticker {
             background-color: #000;
+            color: #ffcc00;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            font-weight: bold;
+            border-bottom: 2px solid #ffcc00;
+            width: 100%;
+        }
+        
+        .news-ticker p {
+            display: inline-block;
+            padding-left: 100%;
+            animation: ticker 25s linear infinite;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+        
+        @keyframes ticker {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        /* الهيدر */
+        header {
+            background-color: #fff;
+            padding: clamp(20px, 5vw, 30px) clamp(15px, 4vw, 20px);
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            color: #000;
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #666;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+        }
+        
+        /* قسم الفنانين */
+        .artists-section {
+            padding: clamp(20px, 4vw, 30px) clamp(15px, 3vw, 20px);
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
-            font-size: 2.5rem;
-            color: #FFD700;
-            font-weight: 800;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
         }
         
-        .products-grid {
+        .artists-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+            gap: clamp(15px, 3vw, 25px);
+            width: 100%;
         }
         
-        .product-card {
-            background-color: #111;
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+        /* تصميم البطاقات الجديد مع تأثير Hover */
+        .card {
             position: relative;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
-        }
-        
-        .product-image {
-            height: 350px;
+            width: 100%;
+            height: clamp(300px, 70vw, 400px);
+            background-color: #000;
+            border-radius: 15px;
             overflow: hidden;
-            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
         }
-        
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .product-card:hover .product-image img {
-            transform: scale(1.05);
-        }
-        
-        .product-info {
-            padding: 20px;
-        }
-        
-        .product-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            font-weight: 800;
-        }
-        
-        .product-price {
-            color: #FFD700;
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-        
-        .add-to-cart {
-            background-color: #FFD700;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 800;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-        
-        .add-to-cart:hover {
-            background-color: #FFF;
-        }
-        
-        .view-front-btn {
-            background-color: #333;
-            color: #FFF;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 800;
-            margin-top: 10px;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-        
-        .view-front-btn:hover {
-            background-color: #555;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
+
+        .card::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 200;
+            background: linear-gradient(45deg, #ffcc00, #000, #ffcc00);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .card:hover::before {
+            opacity: 0.1;
+        }
+
+        .card .content {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            text-align: center;
+            z-index: 10;
+            transition: all 0.5s ease;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .card .content span {
+            font-weight: bold;
+            color: #ffcc00;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            letter-spacing: 1px;
+            transition: all 0.5s ease;
+            text-transform: uppercase;
+        }
+
+        .card:hover .content {
+            height: 150px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
+        }
+
+        .card:hover .content span {
+            transform: translateY(-10px);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ffcc00, transparent, #ffcc00);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .card:hover::after {
+            opacity: 0.1;
+        }
+
+        .artist-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .artist-image {
+            transform: scale(1.1);
+        }
+
+        .artist-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-        }
-        
-        .modal-content {
-            background-color: #111;
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            border: 1px solid #FFD700;
-            animation: modalFadeIn 0.5s;
-        }
-        
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #FFF;
-            font-size: 30px;
-            cursor: pointer;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 800;
-            color: #FFD700;
-        }
-        
-        .form-group input, 
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            background-color: #222;
-            border: 1px solid #444;
-            border-radius: 5px;
-            color: #FFF;
-            font-family: 'Almarai', sans-serif;
-        }
-        
-        .submit-order {
-            background-color: #FFD700;
-            color: #000;
-            border: none;
-            padding: 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 800;
-            width: 100%;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        
-        .submit-order:hover {
-            background-color: #FFF;
-        }
-        
-        .cart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 350px;
-            height: 100%;
-            background-color: #111;
-            z-index: 200;
-            padding: 20px;
-            overflow-y: auto;
-            border-left: 1px solid #FFD700;
-            animation: cartSlideIn 0.3s;
-        }
-        
-        @keyframes cartSlideIn {
-            from {
-                transform: translateX(100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-        
-        .close-cart {
-            color: #FFF;
-            font-size: 24px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            display: block;
-        }
-        
-        .cart-items {
-            margin-bottom: 20px;
-        }
-        
-        .cart-item {
-            display: flex;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #333;
-        }
-        
-        .cart-item-image {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            margin-left: 10px;
-            border-radius: 5px;
-        }
-        
-        .cart-item-details {
-            flex: 1;
-        }
-        
-        .cart-item-title {
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-        
-        .cart-item-price {
-            color: #FFD700;
-        }
-        
-        .remove-item {
-            color: #FF5555;
-            cursor: pointer;
-            margin-top: 5px;
-            font-size: 14px;
-        }
-        
-        .cart-total {
-            font-weight: 800;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            text-align: right;
-        }
-        
-        .checkout-btn {
-            background-color: #FFD700;
-            color: #000;
-            border: none;
-            padding: 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 800;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-        
-        .checkout-btn:hover {
-            background-color: #FFF;
-        }
-        
-        footer {
-            background-color: #111;
-            padding: 50px 5%;
+            padding: clamp(15px, 3vw, 20px);
             text-align: center;
-            border-top: 1px solid #FFD700;
+            z-index: 5;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
         }
-        
-        .footer-logo {
-            height: 60px;
-            margin-bottom: 20px;
+
+        .card:hover .artist-info {
+            opacity: 1;
+            transform: translateY(0);
         }
-        
-        .contact-info {
-            margin-bottom: 20px;
-        }
-        
-        .contact-info a {
-            color: #FFD700;
-            text-decoration: none;
-            font-weight: 800;
-        }
-        
-        .social-media {
-            margin: 30px 0;
-        }
-        
-        .social-media h3 {
-            color: #FFD700;
+
+        .artist-name {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            font-weight: bold;
             margin-bottom: 15px;
-            font-size: 1.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .artist-description {
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            max-width: 90%;
+        }
+
+        .artist-link {
+            display: inline-block;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: #ffcc00;
+            padding: clamp(10px, 2.5vw, 12px) clamp(20px, 4vw, 25px);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            border: 2px solid #ffcc00;
+        }
+
+        .artist-link:hover {
+            background-color: transparent;
+            color: #ffcc00;
+            transform: translateY(-2px);
+        }
+        
+        /* الفوتر */
+        footer {
+            background-color: #000;
+            color: white;
+            padding: clamp(20px, 4vw, 30px) clamp(15px, 3vw, 20px);
+            text-align: center;
+            margin-top: 50px;
         }
         
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: clamp(10px, 3vw, 20px);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
-        .social-links a {
-            color: #FFF;
-            font-size: 24px;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #222;
+        .social-link {
+            color: white;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            transition: color 0.3s;
             text-decoration: none;
         }
         
-        .social-links a:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        }
-        
-        .social-links img {
-            width: 30px;
-            height: 30px;
-            object-fit: contain;
-        }
-        
-        .social-text {
-            margin-top: 15px;
-            color: #AAA;
+        .social-link:hover {
+            color: #ffcc00;
         }
         
         .copyright {
-            margin-top: 20px;
-            color: #888;
+            margin-top: 15px;
+            color: #aaa;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
         }
         
-        /* Animation for product showcase */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-        
-        .featured-product {
-            animation: float 6s ease-in-out infinite;
-            position: relative;
-        }
-        
-        /* 4K Animation for product display */
-        .product-animation {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .product-animation::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,215,0,0) 50%, rgba(255,215,0,0.1) 100%);
-            background-size: 200% 200%;
-            animation: shimmer 3s infinite;
-            z-index: 1;
-        }
-        
-        @keyframes shimmer {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: -200% -200%;
-            }
-        }
-        
-        /* Image modal */
-        .image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 300;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .image-modal-content {
-            max-width: 90%;
-            max-height: 90%;
-        }
-        
-        .close-image-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #FFF;
-            font-size: 30px;
-            cursor: pointer;
-        }
-        
-        /* Responsive styles */
+        /* تنسيقات للهواتف */
         @media (max-width: 768px) {
-            header {
-                padding: 15px 5%;
+            .artists-grid {
+                grid-template-columns: 1fr;
             }
             
-            .logo {
-                height: 40px;
+            .card {
+                height: clamp(280px, 60vh, 350px);
             }
             
-            .wide-logo {
-                height: 30px;
+            .artist-name {
+                font-size: clamp(1.3rem, 5vw, 1.5rem);
             }
             
-            nav ul li {
-                margin-left: 15px;
+            .artist-description {
+                font-size: clamp(0.85rem, 3vw, 0.9rem);
             }
             
-            .hero-content h1 {
-                font-size: 2.5rem;
+            .artist-link {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card .content {
+                height: 80px;
+                padding: 15px;
             }
             
-            .hero-content p {
-                font-size: 1.2rem;
+            .card:hover .content {
+                height: 120px;
             }
             
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .artist-info {
+                padding: 10px;
+            }
+        }
+        
+        /* تحسينات للشاشات الكبيرة جداً */
+        @media (min-width: 1400px) {
+            .artists-section {
+                max-width: 1400px;
             }
             
-            .cart-modal {
-                width: 100%;
-            }
-            
-            .social-links {
-                gap: 15px;
-            }
-            
-            .social-links a {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .social-links img {
-                width: 25px;
-                height: 25px;
+            .artists-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             }
         }
     </style>
 </head>
 <body>
+    <!-- شريط الأخبار -->
+    <div class="news-ticker">
+        <p>📢 راب صاعد لاحدث اخبار الراب في الوطن العربي 
+        </p>
+    </div>
+    
+    <!-- الهيدر -->
     <header>
-        <div class="logo-container">
-            <img src="https://i.postimg.cc/rs6X3SQZ/6e5ef2dd-ef26-49a5-afbf-39c6d08c711b.jpg" alt="Scene Store Logo" class="logo">
-            <img src="https://i.postimg.cc/Bbx90XzS/bcc9e76b-1dc5-40c6-a4f9-a0c9c01b8090.jpg" alt="Scene Store" class="wide-logo">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">الرئيسية</a></li>
-                <li><a href="#products">المنتجات</a></li>
-                <li><a href="#social">سوشيال ميديا</a></li>
-                <li><a href="#contact">اتصل بنا</a></li>
-            </ul>
-        </nav>
-        <div class="cart-icon" id="cart-icon">
-            🛒
-            <span class="cart-count" id="cart-count">0</span>
-        </div>
+        <h1>الفنان الصاعد</h1>
+        <p>اخبار الفنان الصاعد</p>
     </header>
     
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Scene Store</h1>
-            <p>اكتشف أحدث تشكيلة ملابس الراب بجودة عالية وأسعار تنافسية</p>
-            <a href="#products" class="btn">تصفح المنتجات</a>
+    <!-- قسم الفنانين -->
+    <section class="artists-section">
+        <h2 class="section-title">أبرز الفنانين الصاعدين</h2>
+        
+        <div class="artists-grid">
+            <!-- الفنان برق -->
+            <div class="card">
+                <img src="https://i.postimg.cc/dtBTcnGG/2025-10-14-21-52-09-54a19c90.jpg" alt="الفنان برق" class="artist-image">
+                <div class="content">
+                    <span>الفنان برق</span>
+                </div>
+                <div class="artist-info">
+                    <div class="artist-name">الفنان برق</div>
+                    <p class="artist-description">برق بتراكو الجديــــد 🆕⭐🎶
+</p>
+                    <a href="https://www.instagram.com/p/DPZOP21DAga/?utm_source=ig_web_copy_link&igsh=MWEyNGMyN244ODBubw==" target="_blank" class="artist-link">متابعة على الإنستغرام</a>
+                </div>
+            </div>
+            
+            <!-- الفنان جيربرتو -->
+            <div class="card">
+                <img src="https://i.postimg.cc/sgbjkZHw/2025-10-14-21-52-04-e42e410f.jpg" alt="الفنان جيربرتو" class="artist-image">
+                <div class="content">
+                    <span>الفنان جيربرتو</span>
+                </div>
+                <div class="artist-info">
+                    <div class="artist-name">الفنان جيربرتو</div>
+                    <p class="artist-description">جيربرتو ينزل بـ عظمه
+ </p>
+                    <a href="https://www.instagram.com/p/DPedcH3DKuC/?utm_source=ig_web_copy_link&igsh=MThramI2M3p1c3E5NA==" target="_blank" class="artist-link">متابعة على الإنستغرام</a>
+                </div>
+            </div>
+            
+            <!-- الفنان معاذ بيرلو -->
+            <div class="card">
+                <img src="https://i.postimg.cc/pX2pC832/2025-10-14-21-52-09-5bbe3088.jpg" alt="الفنان معاذ بيرلو" class="artist-image">
+                <div class="content">
+                    <span>الفنان معاذ بيرلو</span>
+                </div>
+                <div class="artist-info">
+                    <div class="artist-name">الفنان معاذ بيرلو</div>
+                    <p class="artist-description"> معاذ بيرلو بتراك جديد 🆕🎶⭐
+</p>
+                    <a href="https://www.instagram.com/p/DPZNRbcjAwa/?utm_source=ig_web_copy_link&igsh=MWs5bWt0cDU2eTZteA==" target="_blank" class="artist-link">متابعة على الإنستغرام</a>
+                </div>
+            </div>
+            
+            <!-- الفنان علاء سايكو -->
+            <div class="card">
+                <img src="https://i.postimg.cc/V6QNCbjC/2025-10-14-21-52-09-cd409fdc.jpg" alt="الفنان علاء سايكو" class="artist-image">
+                <div class="content">
+                    <span>الفنان علاء سايكو</span>
+                </div>
+                <div class="artist-info">
+                    <div class="artist-name">الفنان علاء سايكو</div>
+                    <p class="artist-description">£LAP$YCHOبتراك جديد
+</p>
+                    <a href="https://www.instagram.com/p/DOGQdA_DKTB/?utm_source=ig_web_copy_link&igsh=MTFoNjVvMHQzaGpkcg==" target="_blank" class="artist-link">متابعة على الإنستغرام</a>
+                </div>
+            </div>
+            
+            <!-- الفنان استرو -->
+            <div class="card">
+                <img src="https://i.postimg.cc/J464QFbT/2025-10-14-21-52-08-9ac8bada.jpg" alt="الفنان استرو" class="artist-image">
+                <div class="content">
+                    <span>الفنان استرو</span>
+                </div>
+                <div class="artist-info">
+                    <div class="artist-name">الفنان استرو</div>
+                    <p class="artist-description">استرو عمل البوم من10 تركات خش اسمع
+</p>
+                    <a href="https://www.instagram.com/p/DOF743hjVhy/?utm_source=ig_web_copy_link&igsh=czU2dnRlZHh3azFp" target="_blank" class="artist-link">متابعة على الإنستغرام</a>
+                </div>
+            </div>
         </div>
     </section>
     
-    <section class="products" id="products">
-        <h2 class="section-title">منتجاتنا</h2>
-        <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-image product-animation">
-                    <img src="https://i.postimg.cc/wMsJTd5T/bcacf448-2acd-4cde-9c3c-6fe0f7203641.jpg" alt="تيشرت مروان بابلو">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">تيشرت مروان بابلو</h3>
-                    <p class="product-price">250 ج.م</p>
-                    <button class="add-to-cart" data-id="1" data-name="تيشرت مروان بابلو" data-price="250">أضف إلى السلة</button>
-                    <button class="view-front-btn" data-front="https://i.postimg.cc/mZF8rxgH/bbdffb59-4b2e-492f-a043-af9f946cba4c.jpg">عرض الوجه الأمامي</button>
-                </div>
-            </div>
-            
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="product-image product-animation">
-                    <img src="https://i.postimg.cc/QNRYg8ym/ef2b3ca1-42a5-4fa8-9818-3e5b6d74282e.jpg" alt="تيشرت ويجز">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">تيشرت ويجز</h3>
-                    <p class="product-price">280 ج.م</p>
-                    <button class="add-to-cart" data-id="2" data-name="تيشرت ويجز" data-price="280">أضف إلى السلة</button>
-                    <button class="view-front-btn" data-front="https://i.postimg.cc/PfZQjmSb/079ecafa-d51f-4132-8f35-764f1f301d1f.jpg">عرض الوجه الأمامي</button>
-                </div>
-            </div>
-            
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-image product-animation">
-                    <img src="https://i.postimg.cc/fbJYgX39/d6db9d65-bb9b-4b44-96c0-bf506596040e.jpg" alt="تيشرت بابلو فري">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">تيشرت بابلو فري</h3>
-                    <p class="product-price">270 ج.م</p>
-                    <button class="add-to-cart" data-id="3" data-name="تيشرت بابلو فري" data-price="270">أضف إلى السلة</button>
-                    <button class="view-front-btn" data-front="https://i.postimg.cc/sgfY7bsK/e077a4ec-ad01-4deb-802b-045018451ab8.jpg">عرض الوجه الأمامي</button>
-                </div>
-            </div>
-            
-            <!-- Product 4 -->
-            <div class="product-card">
-                <div class="product-image product-animation">
-                    <img src="https://i.postimg.cc/HWQXKTLB/c06101bb-950e-421e-abc0-c2ce617de1ab.jpg" alt="تيشرت مروان موسي">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">تيشرت مروان موسي</h3>
-                    <p class="product-price">260 ج.م</p>
-                    <button class="add-to-cart" data-id="4" data-name="تيشرت مروان موسي" data-price="260">أضف إلى السلة</button>
-                    <button class="view-front-btn" data-front="https://i.postimg.cc/wMHyHsBF/f4be4b0f-52f8-4f6a-a015-46fcd822a2bf.jpg">عرض الوجه الأمامي</button>
-                </div>
-            </div>
-            
-            <!-- Product 5 -->
-            <div class="product-card">
-                <div class="product-image product-animation">
-                    <img src="https://i.postimg.cc/L69Ybfw8/83138c55-4302-46cf-8ec1-1d0df5735262.jpg" alt="تيشرت ابيوسف">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">تيشرت ابيوسف</h3>
-                    <p class="product-price">240 ج.م</p>
-                    <button class="add-to-cart" data-id="5" data-name="تيشرت ابيوسف" data-price="240">أضف إلى السلة</button>
-                    <button class="view-front-btn" data-front="https://i.postimg.cc/tTG7tVFy/0fed5556-6ac5-4ce1-889c-62515f654b46.jpg">عرض الوجه الأمامي</button>
-                </div>
-            </div>
+    <!-- الفوتر -->
+    <footer>
+        <div class="social-links">
+            <a href="#" class="social-link">إنستغرام</a>
+            <a href="#" class="social-link">فيسبوك</a>
+            <a href="#" class="social-link">يوتيوب</a>
+            <a href="#" class="social-link">تيك توك</a>
         </div>
-    </section>
-    
-    <!-- Social Media Section -->
-    <section id="social" style="background-color: #000; padding: 50px 5%; text-align: center; border-top: 1px solid #FFD700; border-bottom: 1px solid #FFD700;">
-        <div class="social-media">
-            <h3 style="color: #FFD700; margin-bottom: 30px; font-size: 2rem;">تابعنا على السوشيال ميديا</h3>
-            <div class="social-links">
-                <a href="https://www.instagram.com/scene_store1" target="_blank" title="Instagram">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram">
-                </a>
-                <a href="https://www.tiktok.com/@scene.store1" target="_blank" title="TikTok">
-                    <img src="https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png" alt="TikTok">
-                </a>
-            </div>
-            <p class="social-text">تابعنا للحصول على أحدث الإصدارات والعروض الحصرية</p>
-        </div>
-    </section>
-    
-    <!-- Order Modal -->
-    <div class="modal" id="order-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 style="color: #FFD700; margin-bottom: 20px; text-align: center;">اكمل بيانات الطلب</h2>
-            <form id="order-form">
-                <input type="hidden" id="product-id">
-                <input type="hidden" id="product-name">
-                <input type="hidden" id="product-price">
-                
-                <div class="form-group">
-                    <label for="size">المقاس:</label>
-                    <select id="size" required>
-                        <option value="">اختر المقاس</option>
-                        <option value="S">Small (S)</option>
-                        <option value="M">Medium (M)</option>
-                        <option value="L">Large (L)</option>
-                        <option value="XL">X-Large (XL)</option>
-                        <option value="XXL">XX-Large (XXL)</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="color">اللون:</label>
-                    <select id="color" required>
-                        <option value="">اختر اللون</option>
-                        <option value="أسود">أسود</option>
-                        <option value="أبيض">أبيض</option>
-                        <option value="أحمر">أحمر</option>
-                        <option value="أزرق">أزرق</option>
-                        <option value="أصفر">أصفر</option>
-                        <option value="رمادي">رمادي</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="address">العنوان:</label>
-                    <input type="text" id="address" required placeholder="اكتب عنوانك بالتفصيل">
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">رقم الهاتف:</label>
-                    <input type="tel" id="phone" required placeholder="مثال: 01152830940">
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">البريد الإلكتروني (اختياري):</label>
-                    <input type="email" id="email" placeholder="example@email.com">
-                </div>
-                
-                <button type="submit" class="submit-order">أكمل الطلب</button>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Cart Modal -->
-    <div class="cart-modal" id="cart-modal">
-        <span class="close-cart">&times;</span>
-        <h2 style="color: #FFD700; margin-bottom: 20px;">سلة التسوق</h2>
-        
-        <div class="cart-items" id="cart-items">
-            <!-- Cart items will be added here dynamically -->
-        </div>
-        
-        <div class="cart-total">
-            الإجمالي: <span id="cart-total-price">0</span> ج.م
-        </div>
-        
-        <button class="checkout-btn" id="checkout-btn">إتمام الشراء</button>
-    </div>
-    
-    <!-- Image Modal -->
-    <div class="image-modal" id="image-modal">
-        <span class="close-image-modal">&times;</span>
-        <img src="" alt="Front View" class="image-modal-content" id="modal-image">
-    </div>
-    
-    <footer id="contact">
-        <img src="https://i.postimg.cc/Bbx90XzS/bcc9e76b-1dc5-40c6-a4f9-a0c9c01b8090.jpg" alt="Scene Store" class="footer-logo">
-        <div class="contact-info">
-            <p>للتواصل معنا:</p>
-            <a href="tel:01152830940">01152830940</a>
-        </div>
-        <div class="copyright">
-            جميع الحقوق محفوظة &copy; 2023 Scene Store
-        </div>
+        <p>تابع الفنان الصاعد على وسائل التواصل الاجتماعي</p>
+        <p class="copyright">جميع الحقوق محفوظة &copy; 2025 راب الصاعد</p>
     </footer>
-    
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Cart functionality
-            const cartIcon = document.getElementById('cart-icon');
-            const cartModal = document.getElementById('cart-modal');
-            const closeCart = document.querySelector('.close-cart');
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartCount = document.getElementById('cart-count');
-            const cartTotalPrice = document.getElementById('cart-total-price');
-            const checkoutBtn = document.getElementById('checkout-btn');
+            console.log('موقع الفنان الصاعد - تم تحميل الصفحة بنجاح');
             
-            // Order modal functionality
-            const orderModal = document.getElementById('order-modal');
-            const closeModal = document.querySelector('.close-modal');
-            const orderForm = document.getElementById('order-form');
-            
-            // Image modal functionality
-            const imageModal = document.getElementById('image-modal');
-            const modalImage = document.getElementById('modal-image');
-            const closeImageModal = document.querySelector('.close-image-modal');
-            
-            let cart = [];
-            
-            // Open cart modal
-            cartIcon.addEventListener('click', function() {
-                cartModal.style.display = 'block';
-                updateCartDisplay();
+            // إضافة تأثير تحميل للصور
+            const images = document.querySelectorAll('.artist-image');
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.5s';
             });
-            
-            // Close cart modal
-            closeCart.addEventListener('click', function() {
-                cartModal.style.display = 'none';
-            });
-            
-            // Close order modal
-            closeModal.addEventListener('click', function() {
-                orderModal.style.display = 'none';
-            });
-            
-            // Close image modal
-            closeImageModal.addEventListener('click', function() {
-                imageModal.style.display = 'none';
-            });
-            
-            // Close modals when clicking outside
-            window.addEventListener('click', function(event) {
-                if (event.target === orderModal) {
-                    orderModal.style.display = 'none';
-                }
-                if (event.target === cartModal) {
-                    cartModal.style.display = 'none';
-                }
-                if (event.target === imageModal) {
-                    imageModal.style.display = 'none';
-                }
-            });
-            
-            // Add to cart buttons
-            const addToCartButtons = document.querySelectorAll('.add-to-cart');
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-id');
-                    const productName = this.getAttribute('data-name');
-                    const productPrice = parseFloat(this.getAttribute('data-price'));
-                    
-                    // Set product details in order form
-                    document.getElementById('product-id').value = productId;
-                    document.getElementById('product-name').value = productName;
-                    document.getElementById('product-price').value = productPrice;
-                    
-                    // Show order modal
-                    orderModal.style.display = 'flex';
+
+            // إضافة تأثيرات إضافية للبطاقات
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
                 });
             });
             
-            // View front buttons
-            const viewFrontButtons = document.querySelectorAll('.view-front-btn');
-            viewFrontButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const frontImage = this.getAttribute('data-front');
-                    modalImage.src = frontImage;
-                    imageModal.style.display = 'flex';
-                });
-            });
-            
-            // Order form submission
-            orderForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const productId = document.getElementById('product-id').value;
-                const productName = document.getElementById('product-name').value;
-                const productPrice = parseFloat(document.getElementById('product-price').value);
-                const size = document.getElementById('size').value;
-                const color = document.getElementById('color').value;
-                const address = document.getElementById('address').value;
-                const phone = document.getElementById('phone').value;
-                const email = document.getElementById('email').value;
-                
-                // Add to cart
-                cart.push({
-                    id: productId,
-                    name: productName,
-                    price: productPrice,
-                    size: size,
-                    color: color,
-                    address: address,
-                    phone: phone,
-                    email: email
-                });
-                
-                // Update cart count
-                cartCount.textContent = cart.length;
-                
-                // Close modal and reset form
-                orderModal.style.display = 'none';
-                orderForm.reset();
-                
-                // Show success message
-                alert('تم إضافة المنتج إلى سلة التسوق بنجاح!');
-            });
-            
-            // Checkout button - Send to WhatsApp
-            checkoutBtn.addEventListener('click', function() {
-                if (cart.length === 0) {
-                    alert('سلة التسوق فارغة!');
-                    return;
-                }
-                
-                // Prepare order details for WhatsApp
-                let orderDetails = `*طلب جديد من Scene Store*%0A%0A`;
-                let total = 0;
-                
-                // Add customer info from first item
-                orderDetails += `*معلومات العميل:*%0A`;
-                orderDetails += `- الاسم: ${cart[0].name.split(' ')[0]}%0A`;
-                orderDetails += `- الهاتف: ${cart[0].phone}%0A`;
-                orderDetails += `- العنوان: ${cart[0].address}%0A`;
-                if (cart[0].email) {
-                    orderDetails += `- البريد الإلكتروني: ${cart[0].email}%0A`;
-                }
-                orderDetails += `%0A`;
-                
-                // Add products
-                orderDetails += `*المنتجات:*%0A`;
-                cart.forEach(item => {
-                    orderDetails += `- ${item.name} (${item.size}, ${item.color}): ${item.price} ج.م%0A`;
-                    total += item.price;
-                });
-                
-                orderDetails += `%0A*الإجمالي: ${total} ج.م*`;
-                
-                // Create WhatsApp link
-                const whatsappLink = `https://wa.me/201152830940?text=${orderDetails}`;
-                
-                // Open WhatsApp in new tab
-                window.open(whatsappLink, '_blank');
-                
-                // Clear cart
-                cart = [];
-                cartCount.textContent = '0';
-                cartItemsContainer.innerHTML = '';
-                cartTotalPrice.textContent = '0';
-                cartModal.style.display = 'none';
-            });
-            
-            // Update cart display
-            function updateCartDisplay() {
-                cartItemsContainer.innerHTML = '';
-                let total = 0;
-                
-                if (cart.length === 0) {
-                    cartItemsContainer.innerHTML = '<p>سلة التسوق فارغة</p>';
-                    cartTotalPrice.textContent = '0';
-                    return;
-                }
-                
-                cart.forEach(item => {
-                    const cartItemElement = document.createElement('div');
-                    cartItemElement.className = 'cart-item';
-                    
-                    // In a real app, you would use the actual product image
-                    cartItemElement.innerHTML = `
-                        <img src="https://via.placeholder.com/70" alt="${item.name}" class="cart-item-image">
-                        <div class="cart-item-details">
-                            <h4 class="cart-item-title">${item.name}</h4>
-                            <p class="cart-item-price">${item.price} ج.م</p>
-                            <p>المقاس: ${item.size} | اللون: ${item.color}</p>
-                            <p class="remove-item" data-id="${item.id}">إزالة</p>
-                        </div>
-                    `;
-                    
-                    cartItemsContainer.appendChild(cartItemElement);
-                    total += item.price;
-                });
-                
-                // Add event listeners to remove buttons
-                document.querySelectorAll('.remove-item').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const itemId = this.getAttribute('data-id');
-                        cart = cart.filter(item => item.id !== itemId);
-                        cartCount.textContent = cart.length;
-                        updateCartDisplay();
-                    });
-                });
-                
-                cartTotalPrice.textContent = total;
+            // تحسين شريط الأخبار للشاشات الصغيرة
+            const ticker = document.querySelector('.news-ticker p');
+            if (window.innerWidth < 768) {
+                ticker.style.animationDuration = '15s';
             }
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Animation for featured product
-            const featuredProduct = document.querySelector('.product-card:nth-child(1)');
-            featuredProduct.classList.add('featured-product');
-            
-            // 4K Animation for product display
-            const productAnimations = document.querySelectorAll('.product-animation');
-            productAnimations.forEach(animation => {
-                animation.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.02)';
-                    this.style.transition = 'transform 0.5s ease';
-                });
-                
-                animation.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            });
+        });
+        
+        // تحديث شريط الأخبار عند تغيير حجم الشاشة
+        window.addEventListener('resize', function() {
+            const ticker = document.querySelector('.news-ticker p');
+            if (window.innerWidth < 768) {
+                ticker.style.animationDuration = '15s';
+            } else {
+                ticker.style.animationDuration = '25s';
+            }
         });
     </script>
 </body>
